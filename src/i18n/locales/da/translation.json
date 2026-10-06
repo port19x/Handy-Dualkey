@@ -179,12 +179,27 @@
           "transcribe_with_post_process": {
             "name": "Genvej til efterbehandling",
             "description": "Valgfrit: En dedikeret genvej, der altid anvender AI-efterbehandling på din transskription."
+          },
+          "transcribe_secondary": {
+            "name": "Sekundær genvej til transskription",
+            "description": "En ekstra genvej til transskription, som kan bruge en anden model."
           }
         },
         "errors": {
           "restore": "Kunne ikke gendanne den oprindelige genvej",
           "set": "Kunne ikke indstille genvej: {{error}}",
           "reset": "Kunne ikke nulstille genvej til oprindelig indstilling"
+        },
+        "shortcutModels": {
+          "chooseModel": "Vælg en model",
+          "transcribe": {
+            "name": "Model for primær genvej",
+            "description": "Transskriptionsmodellen, der bruges af den primære genvej."
+          },
+          "transcribe_secondary": {
+            "name": "Model for sekundær genvej",
+            "description": "Transskriptionsmodellen, der bruges af den sekundære genvej."
+          }
         }
       },
       "language": {

@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Son İşlem Kısayolu",
             "description": "İsteğe bağlı: Transkripsiyonunuza her zaman yapay zekâ ile son işlem uygulayan özel bir kısayol tuşu."
+          },
+          "transcribe_secondary": {
+            "name": "İkincil transkripsiyon kısayolu",
+            "description": "Farklı bir model kullanabilen ikinci bir transkripsiyon kısayolu."
           }
         },
         "errors": {
           "restore": "Orijinal kısayol geri yüklenemedi",
           "set": "Kısayol ayarlanamadı: {{error}}",
           "reset": "Kısayol orijinal değerine sıfırlanamadı"
+        },
+        "shortcutModels": {
+          "chooseModel": "Bir model seçin",
+          "transcribe": {
+            "name": "Birincil kısayol modeli",
+            "description": "Birincil kısayol tarafından kullanılan transkripsiyon modeli."
+          },
+          "transcribe_secondary": {
+            "name": "İkincil kısayol modeli",
+            "description": "İkincil kısayol tarafından kullanılan transkripsiyon modeli."
+          }
         }
       },
       "language": {

@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Tasto di post-elaborazione",
             "description": "Facoltativo: Un tasto di scelta rapida dedicato che applica sempre la post-elaborazione IA alla trascrizione."
+          },
+          "transcribe_secondary": {
+            "name": "Scorciatoia di trascrizione secondaria",
+            "description": "Una seconda scorciatoia di trascrizione che può usare un modello diverso."
           }
         },
         "errors": {
           "restore": "Errore nel ripristino della scorciatoia originale",
           "set": "Errore nella configurazione della scorciatoia: {{error}}",
           "reset": "Errore nella reinizializzazione della scorciatoia al valore originale"
+        },
+        "shortcutModels": {
+          "chooseModel": "Scegli un modello",
+          "transcribe": {
+            "name": "Modello della scorciatoia principale",
+            "description": "Il modello di trascrizione usato dalla scorciatoia principale."
+          },
+          "transcribe_secondary": {
+            "name": "Modello della scorciatoia secondaria",
+            "description": "Il modello di trascrizione usato dalla scorciatoia secondaria."
+          }
         }
       },
       "language": {

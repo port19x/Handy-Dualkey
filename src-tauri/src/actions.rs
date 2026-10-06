@@ -389,6 +389,26 @@ impl ShortcutAction for TranscribeAction {
         let start_time = Instant::now();
         debug!("TranscribeAction::start called for binding: {}", binding_id);
 
+        let configured_model = {
+            let settings = get_settings(app);
+            match binding_id {
+                "transcribe" | "transcribe_with_post_process" => settings.primary_shortcut_model,
+                "transcribe_secondary" => settings.secondary_shortcut_model,
+                _ => String::new(),
+            }
+        };
+        if !configured_model.is_empty() && get_settings(app).selected_model != configured_model {
+            if let Err(error) =
+                crate::commands::models::prepare_model_for_shortcut(app, &configured_model)
+            {
+                warn!(
+                    "Not starting recording: failed to switch '{}' to model '{}': {}",
+                    binding_id, configured_model, error
+                );
+                return;
+            }
+        }
+
         // Load model in the background
         let tm = app.state::<Arc<TranscriptionManager>>();
         let rm = app.state::<Arc<AudioRecordingManager>>();
@@ -862,6 +882,12 @@ pub static ACTION_MAP: Lazy<HashMap<String, Arc<dyn ShortcutAction>>> = Lazy::ne
     let mut map = HashMap::new();
     map.insert(
         "transcribe".to_string(),
+        Arc::new(TranscribeAction {
+            post_process: false,
+        }) as Arc<dyn ShortcutAction>,
+    );
+    map.insert(
+        "transcribe_secondary".to_string(),
         Arc::new(TranscribeAction {
             post_process: false,
         }) as Arc<dyn ShortcutAction>,

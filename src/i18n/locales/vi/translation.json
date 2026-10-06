@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Phím tắt xử lý sau",
             "description": "Tùy chọn: Phím tắt chuyên dụng luôn áp dụng xử lý sau bằng AI cho bản chuyển đổi của bạn."
+          },
+          "transcribe_secondary": {
+            "name": "Phím tắt phiên âm phụ",
+            "description": "Phím tắt phiên âm thứ hai có thể sử dụng một mô hình khác."
           }
         },
         "errors": {
           "restore": "Không thể khôi phục phím tắt gốc",
           "set": "Không thể đặt phím tắt: {{error}}",
           "reset": "Không thể đặt lại phím tắt về giá trị gốc"
+        },
+        "shortcutModels": {
+          "chooseModel": "Chọn mô hình",
+          "transcribe": {
+            "name": "Mô hình cho phím tắt chính",
+            "description": "Mô hình phiên âm được dùng bởi phím tắt chính."
+          },
+          "transcribe_secondary": {
+            "name": "Mô hình cho phím tắt phụ",
+            "description": "Mô hình phiên âm được dùng bởi phím tắt phụ."
+          }
         }
       },
       "language": {

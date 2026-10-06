@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Nachbearbeitungs-Tastenkürzel",
             "description": "Optional: Ein dediziertes Tastenkürzel, das immer die KI-Nachbearbeitung auf deine Transkription anwendet."
+          },
+          "transcribe_secondary": {
+            "name": "Sekundäres Transkriptions-Tastenkürzel",
+            "description": "Ein zweites Transkriptions-Tastenkürzel, das ein anderes Modell verwenden kann."
           }
         },
         "errors": {
           "restore": "Ursprüngliches Tastenkürzel konnte nicht wiederhergestellt werden",
           "set": "Tastenkürzel konnte nicht gesetzt werden: {{error}}",
           "reset": "Tastenkürzel konnte nicht auf Originalwert zurückgesetzt werden"
+        },
+        "shortcutModels": {
+          "chooseModel": "Modell auswählen",
+          "transcribe": {
+            "name": "Modell für primäres Tastenkürzel",
+            "description": "Das Transkriptionsmodell für das primäre Tastenkürzel."
+          },
+          "transcribe_secondary": {
+            "name": "Modell für sekundäres Tastenkürzel",
+            "description": "Das Transkriptionsmodell für das sekundäre Tastenkürzel."
+          }
         }
       },
       "language": {

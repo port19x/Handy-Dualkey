@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Klávesa pro následné zpracování",
             "description": "Volitelné: Vyhrazená klávesová zkratka, která vždy použije AI následné zpracování na váš přepis."
+          },
+          "transcribe_secondary": {
+            "name": "Sekundární zkratka pro přepis",
+            "description": "Druhá zkratka pro přepis, která může používat jiný model."
           }
         },
         "errors": {
           "restore": "Nepodařilo se obnovit původní zkratku",
           "set": "Nepodařilo se nastavit zkratku: {{error}}",
           "reset": "Nepodařilo se vrátit zkratku na původní hodnotu"
+        },
+        "shortcutModels": {
+          "chooseModel": "Vyberte model",
+          "transcribe": {
+            "name": "Model primární zkratky",
+            "description": "Model přepisu používaný primární zkratkou."
+          },
+          "transcribe_secondary": {
+            "name": "Model sekundární zkratky",
+            "description": "Model přepisu používaný sekundární zkratkou."
+          }
         }
       },
       "language": {

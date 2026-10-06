@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Tecla de post procesamiento",
             "description": "Opcional: Una tecla de acceso rápido dedicada que siempre aplica post procesamiento con IA a tu transcripción."
+          },
+          "transcribe_secondary": {
+            "name": "Atajo de transcripción secundario",
+            "description": "Un segundo atajo de transcripción que puede usar un modelo diferente."
           }
         },
         "errors": {
           "restore": "Error al restaurar el atajo original",
           "set": "Error al configurar el atajo: {{error}}",
           "reset": "Error al restablecer el atajo al valor original"
+        },
+        "shortcutModels": {
+          "chooseModel": "Elige un modelo",
+          "transcribe": {
+            "name": "Modelo del atajo principal",
+            "description": "El modelo de transcripción utilizado por el atajo principal."
+          },
+          "transcribe_secondary": {
+            "name": "Modelo del atajo secundario",
+            "description": "El modelo de transcripción utilizado por el atajo secundario."
+          }
         }
       },
       "language": {

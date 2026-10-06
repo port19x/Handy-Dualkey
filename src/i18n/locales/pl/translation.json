@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Skrót postprocessingu",
             "description": "Opcjonalnie: Dedykowany skrót klawiszowy, który zawsze stosuje postprocessing AI do transkrypcji."
+          },
+          "transcribe_secondary": {
+            "name": "Drugi skrót transkrypcji",
+            "description": "Drugi skrót transkrypcji, który może używać innego modelu."
           }
         },
         "errors": {
           "restore": "Nie udało się przywrócić oryginalnego skrótu",
           "set": "Nie udało się ustawić skrótu: {{error}}",
           "reset": "Nie udało się zresetować skrótu do wartości domyślnej"
+        },
+        "shortcutModels": {
+          "chooseModel": "Wybierz model",
+          "transcribe": {
+            "name": "Model głównego skrótu",
+            "description": "Model transkrypcji używany przez główny skrót."
+          },
+          "transcribe_secondary": {
+            "name": "Model dodatkowego skrótu",
+            "description": "Model transkrypcji używany przez dodatkowy skrót."
+          }
         }
       },
       "language": {

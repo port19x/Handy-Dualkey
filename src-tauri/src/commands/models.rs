@@ -69,21 +69,55 @@ pub async fn delete_model(
     transcription_manager: State<'_, Arc<TranscriptionManager>>,
     model_id: String,
 ) -> Result<(), String> {
-    // If deleting the active model, unload it and clear the setting
-    let settings = get_settings(&app_handle);
-    if settings.selected_model == model_id {
+    let previous_settings = get_settings(&app_handle);
+    let was_active = previous_settings.selected_model == model_id;
+
+    // On Windows the active model file may still be mapped, so unload it first.
+    if was_active {
         transcription_manager
             .unload_model()
             .map_err(|e| format!("Failed to unload model: {}", e))?;
-
-        let mut settings = get_settings(&app_handle);
-        settings.selected_model = String::new();
-        write_settings(&app_handle, settings);
     }
 
-    model_manager
-        .delete_model(&model_id)
-        .map_err(|e| e.to_string())
+    if let Err(error) = model_manager.delete_model(&model_id) {
+        if was_active {
+            write_settings(&app_handle, previous_settings.clone());
+            if let Err(reload_error) = transcription_manager.load_model(&model_id) {
+                log::error!(
+                    "Failed to restore model '{}' after delete failure: {}",
+                    model_id,
+                    reload_error
+                );
+            }
+        }
+        return Err(error.to_string());
+    }
+
+    let secondary_was_pinned = previous_settings.secondary_shortcut_model == model_id;
+    if secondary_was_pinned {
+        if let Some(binding) = previous_settings.bindings.get("transcribe_secondary").cloned() {
+            if let Err(error) = crate::shortcut::unregister_shortcut(&app_handle, binding) {
+                log::warn!(
+                    "Failed to unregister secondary shortcut after deleting '{}': {}",
+                    model_id,
+                    error
+                );
+            }
+        }
+    }
+
+    let mut settings = get_settings(&app_handle);
+    if settings.selected_model == model_id {
+        settings.selected_model.clear();
+    }
+    if settings.primary_shortcut_model == model_id {
+        settings.primary_shortcut_model.clear();
+    }
+    if settings.secondary_shortcut_model == model_id {
+        settings.secondary_shortcut_model.clear();
+    }
+    write_settings(&app_handle, settings);
+    Ok(())
 }
 
 /// Shared logic for switching the active model, used by both the Tauri command
@@ -93,6 +127,57 @@ pub async fn delete_model(
 /// unless the unload timeout is set to "Immediately" (in which case the model
 /// will be loaded on-demand during the next transcription).
 pub fn switch_active_model(app: &AppHandle, model_id: &str) -> Result<(), String> {
+    switch_active_model_impl(app, model_id, true)
+}
+
+/// Switch for a model-bound shortcut without redefining the primary shortcut's
+/// model preference.
+pub fn switch_active_model_for_shortcut(app: &AppHandle, model_id: &str) -> Result<(), String> {
+    switch_active_model_impl(app, model_id, false)
+}
+
+/// Prepare a shortcut-specific model without blocking the transcription
+/// coordinator on model construction. The normal recording start path launches
+/// the load on a worker thread, and transcription waits for that worker before
+/// using the engine.
+pub fn prepare_model_for_shortcut(app: &AppHandle, model_id: &str) -> Result<(), String> {
+    let model_manager = app.state::<Arc<ModelManager>>();
+    let transcription_manager = app.state::<Arc<TranscriptionManager>>();
+
+    let model_info = model_manager
+        .get_model_info(model_id)
+        .ok_or_else(|| format!("Model not found: {}", model_id))?;
+    if !model_info.is_downloaded {
+        return Err(format!("Model not downloaded: {}", model_id));
+    }
+
+    let mut settings = get_settings(app);
+    if settings.selected_model == model_id {
+        return Ok(());
+    }
+    settings.selected_model = model_id.to_string();
+    settings.onboarding_completed = true;
+    write_settings(app, settings);
+
+    transcription_manager.reload_model_on_next_use();
+    let _ = app.emit(
+        "model-state-changed",
+        ModelStateEvent {
+            event_type: "selection_changed".to_string(),
+            model_id: Some(model_id.to_string()),
+            model_name: Some(model_info.name.clone()),
+            error: None,
+        },
+    );
+
+    Ok(())
+}
+
+fn switch_active_model_impl(
+    app: &AppHandle,
+    model_id: &str,
+    update_primary_shortcut: bool,
+) -> Result<(), String> {
     let model_manager = app.state::<Arc<ModelManager>>();
     let transcription_manager = app.state::<Arc<TranscriptionManager>>();
 
@@ -115,12 +200,16 @@ pub fn switch_active_model(app: &AppHandle, model_id: &str) -> Result<(), String
     let settings = get_settings(app);
     let unload_timeout = settings.model_unload_timeout;
     let old_model = settings.selected_model.clone();
+    let old_primary_shortcut_model = settings.primary_shortcut_model.clone();
     let old_onboarding_completed = settings.onboarding_completed;
 
     // Persist the new selection early so the frontend sees the correct model
     // when it reacts to events emitted by load_model.
     let mut settings = settings;
     settings.selected_model = model_id.to_string();
+    if update_primary_shortcut {
+        settings.primary_shortcut_model = model_id.to_string();
+    }
     settings.onboarding_completed = true;
 
     write_settings(app, settings);
@@ -150,6 +239,7 @@ pub fn switch_active_model(app: &AppHandle, model_id: &str) -> Result<(), String
     if let Err(e) = transcription_manager.load_model(model_id) {
         let mut settings = get_settings(app);
         settings.selected_model = old_model;
+        settings.primary_shortcut_model = old_primary_shortcut_model;
         settings.onboarding_completed = old_onboarding_completed;
         write_settings(app, settings);
         return Err(e.to_string());

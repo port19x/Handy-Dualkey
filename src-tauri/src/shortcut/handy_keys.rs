@@ -437,6 +437,9 @@ pub fn init_shortcuts(app: &AppHandle) -> Result<(), String> {
         if id == "transcribe_with_post_process" && !user_settings.post_process_enabled {
             continue;
         }
+        if id == "transcribe_secondary" && user_settings.secondary_shortcut_model.is_empty() {
+            continue;
+        }
 
         let binding = user_settings
             .bindings

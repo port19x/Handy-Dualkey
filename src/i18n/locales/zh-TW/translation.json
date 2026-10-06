@@ -179,12 +179,27 @@
           "transcribe_with_post_process": {
             "name": "後處理快捷鍵",
             "description": "可選：專用快捷鍵，使用時一律對轉錄結果套用 AI 後處理"
+          },
+          "transcribe_secondary": {
+            "name": "次要轉錄快捷鍵",
+            "description": "第二個轉錄快捷鍵，可使用不同的模型。"
           }
         },
         "errors": {
           "restore": "無法還原原始快捷鍵",
           "set": "無法設定快捷鍵: {{error}}",
           "reset": "無法將快捷鍵重設為原始值"
+        },
+        "shortcutModels": {
+          "chooseModel": "選擇模型",
+          "transcribe": {
+            "name": "主要快捷鍵模型",
+            "description": "主要快捷鍵使用的轉錄模型。"
+          },
+          "transcribe_secondary": {
+            "name": "次要快捷鍵模型",
+            "description": "次要快捷鍵使用的轉錄模型。"
+          }
         }
       },
       "language": {

@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "後処理のショートカット",
             "description": "文字起こしに常に AI 後処理を適用するキーボードショートカット。 (任意)"
+          },
+          "transcribe_secondary": {
+            "name": "セカンダリ文字起こしショートカット",
+            "description": "別のモデルを使用できる2つ目の文字起こしショートカットです。"
           }
         },
         "errors": {
           "restore": "元のショートカットを復元できませんでした",
           "set": "ショートカットを設定できませんでした: {{error}}",
           "reset": "ショートカットを元の値にリセットできませんでした"
+        },
+        "shortcutModels": {
+          "chooseModel": "モデルを選択",
+          "transcribe": {
+            "name": "プライマリショートカットのモデル",
+            "description": "プライマリショートカットで使用する文字起こしモデルです。"
+          },
+          "transcribe_secondary": {
+            "name": "セカンダリショートカットのモデル",
+            "description": "セカンダリショートカットで使用する文字起こしモデルです。"
+          }
         }
       },
       "language": {

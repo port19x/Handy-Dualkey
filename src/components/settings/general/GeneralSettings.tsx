@@ -12,6 +12,7 @@ import { useSettings } from "../../../hooks/useSettings";
 import { VolumeSlider } from "../VolumeSlider";
 import { MuteWhileRecording } from "../MuteWhileRecording";
 import { ModelSettingsCard } from "./ModelSettingsCard";
+import { ShortcutModelSelector } from "../ShortcutModelSelector";
 
 export const GeneralSettings: React.FC = () => {
   const { t } = useTranslation();
@@ -21,6 +22,12 @@ export const GeneralSettings: React.FC = () => {
     <div className="max-w-3xl w-full mx-auto space-y-6">
       <SettingsGroup title={t("settings.general.title")}>
         <ShortcutInput shortcutId="transcribe" grouped={true} />
+        <ShortcutModelSelector shortcutId="transcribe" grouped={true} />
+        <ShortcutInput shortcutId="transcribe_secondary" grouped={true} />
+        <ShortcutModelSelector
+          shortcutId="transcribe_secondary"
+          grouped={true}
+        />
         <ShortcutActivationSetting descriptionMode="tooltip" grouped={true} />
         {/* Cancel shortcut remains hidden on Linux because of dynamic shortcut instability. */}
         {!isLinux && <ShortcutInput shortcutId="cancel" grouped={true} />}

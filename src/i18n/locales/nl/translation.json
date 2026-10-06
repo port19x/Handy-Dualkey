@@ -179,12 +179,27 @@
           "transcribe_with_post_process": {
             "name": "Sneltoets voor naverwerking",
             "description": "Optioneel: Een specifieke sneltoets die altijd AI-naverwerking toepast op je transcriptie."
+          },
+          "transcribe_secondary": {
+            "name": "Secundaire transcriptiesneltoets",
+            "description": "Een tweede transcriptiesneltoets die een ander model kan gebruiken."
           }
         },
         "errors": {
           "restore": "Herstellen van originele sneltoets mislukt",
           "set": "Instellen van sneltoets mislukt: {{error}}",
           "reset": "Sneltoets terugzetten naar standaardwaarde mislukt"
+        },
+        "shortcutModels": {
+          "chooseModel": "Kies een model",
+          "transcribe": {
+            "name": "Model voor primaire sneltoets",
+            "description": "Het transcriptiemodel dat door de primaire sneltoets wordt gebruikt."
+          },
+          "transcribe_secondary": {
+            "name": "Model voor secundaire sneltoets",
+            "description": "Het transcriptiemodel dat door de secundaire sneltoets wordt gebruikt."
+          }
         }
       },
       "language": {

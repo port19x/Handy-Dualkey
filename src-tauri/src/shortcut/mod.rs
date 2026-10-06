@@ -308,6 +308,9 @@ pub fn resume_all_shortcuts(app: &AppHandle) {
         if id == "transcribe_with_post_process" && !settings.post_process_enabled {
             continue;
         }
+        if id == "transcribe_secondary" && settings.secondary_shortcut_model.is_empty() {
+            continue;
+        }
         if let Err(e) = register_shortcut(app, binding.clone()) {
             debug!("resume_all_shortcuts: could not register '{}': {}", id, e);
         }
@@ -500,6 +503,9 @@ fn register_all_shortcuts_for_implementation(
         if id == "transcribe_with_post_process" && !current_settings.post_process_enabled {
             continue;
         }
+        if id == "transcribe_secondary" && current_settings.secondary_shortcut_model.is_empty() {
+            continue;
+        }
 
         let mut binding = current_settings
             .bindings
@@ -591,6 +597,65 @@ pub fn change_shortcut_activation_setting(
 pub fn change_hold_threshold_ms_setting(app: AppHandle, ms: u64) -> Result<(), String> {
     let mut settings = settings::get_settings(&app);
     settings.hold_threshold_ms = ms;
+    settings::write_settings(&app, settings);
+    Ok(())
+}
+
+#[tauri::command]
+#[specta::specta]
+pub fn change_shortcut_model_setting(
+    app: AppHandle,
+    id: String,
+    model_id: String,
+) -> Result<(), String> {
+    if !matches!(id.as_str(), "transcribe" | "transcribe_secondary") {
+        return Err(format!(
+            "Shortcut '{}' cannot select a transcription model",
+            id
+        ));
+    }
+
+    if id == "transcribe" && model_id.is_empty() {
+        return Err("Primary transcription shortcut requires a model".to_string());
+    }
+
+    if !model_id.is_empty() {
+        let model_manager =
+            app.state::<std::sync::Arc<crate::managers::model::ModelManager>>();
+        let model_info = model_manager
+            .get_model_info(&model_id)
+            .ok_or_else(|| format!("Model not found: {}", model_id))?;
+        if !model_info.is_downloaded {
+            return Err(format!("Model not downloaded: {}", model_id));
+        }
+    }
+
+    let mut settings = settings::get_settings(&app);
+    if settings.primary_shortcut_model.is_empty() {
+        settings.primary_shortcut_model = settings.selected_model.clone();
+    }
+
+    match id.as_str() {
+        "transcribe" => settings.primary_shortcut_model = model_id,
+        "transcribe_secondary" => {
+            let was_enabled = !settings.secondary_shortcut_model.is_empty();
+            let will_be_enabled = !model_id.is_empty();
+            let binding = settings
+                .bindings
+                .get("transcribe_secondary")
+                .cloned()
+                .ok_or_else(|| "Missing secondary transcription shortcut binding".to_string())?;
+
+            if !was_enabled && will_be_enabled {
+                register_shortcut(&app, binding)?;
+            } else if was_enabled && !will_be_enabled {
+                unregister_shortcut(&app, binding)?;
+            }
+            settings.secondary_shortcut_model = model_id;
+        }
+        _ => unreachable!(),
+    }
+
     settings::write_settings(&app, settings);
     Ok(())
 }

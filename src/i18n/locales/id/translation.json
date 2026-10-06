@@ -179,12 +179,27 @@
           "transcribe_with_post_process": {
             "name": "Pintasan Pascaproses",
             "description": "Opsional: pintasan khusus yang selalu menerapkan pascaproses AI pada transkripsi Anda."
+          },
+          "transcribe_secondary": {
+            "name": "Pintasan Transkripsi Sekunder",
+            "description": "Pintasan transkripsi kedua yang dapat menggunakan model berbeda."
           }
         },
         "errors": {
           "restore": "Gagal memulihkan pintasan asli",
           "set": "Gagal mengatur pintasan: {{error}}",
           "reset": "Gagal mengembalikan pintasan ke nilai awal"
+        },
+        "shortcutModels": {
+          "chooseModel": "Pilih model",
+          "transcribe": {
+            "name": "Model Pintasan Utama",
+            "description": "Model transkripsi yang digunakan oleh pintasan utama."
+          },
+          "transcribe_secondary": {
+            "name": "Model Pintasan Sekunder",
+            "description": "Model transkripsi yang digunakan oleh pintasan sekunder."
+          }
         }
       },
       "language": {

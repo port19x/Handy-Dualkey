@@ -101,6 +101,13 @@ const settingUpdaters: {
     commands.changeWhatsNewLastSeenVersionSetting(value as string),
   shortcut_activation: (value) =>
     commands.changeShortcutActivationSetting(value as ShortcutActivation),
+  primary_shortcut_model: (value) =>
+    commands.changeShortcutModelSetting("transcribe", value as string),
+  secondary_shortcut_model: (value) =>
+    commands.changeShortcutModelSetting(
+      "transcribe_secondary",
+      value as string,
+    ),
   hold_threshold_ms: (value) =>
     commands.changeHoldThresholdMsSetting(value as number),
   selected_microphone: (value) =>

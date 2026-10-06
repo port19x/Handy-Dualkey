@@ -172,6 +172,10 @@
             "name": "Transcribe Shortcut",
             "description": "The keyboard shortcut to record and transcribe your voice."
           },
+          "transcribe_secondary": {
+            "name": "Secondary Transcribe Shortcut",
+            "description": "A second transcription shortcut that can use a different model."
+          },
           "cancel": {
             "name": "Cancel Shortcut",
             "description": "The keyboard shortcut to cancel the current recording."
@@ -179,6 +183,17 @@
           "transcribe_with_post_process": {
             "name": "Post-Processing Hotkey",
             "description": "Optional: A dedicated hotkey that always applies AI post-processing to your transcription."
+          }
+        },
+        "shortcutModels": {
+          "chooseModel": "Choose a model",
+          "transcribe": {
+            "name": "Primary Shortcut Model",
+            "description": "The transcription model used by the primary shortcut."
+          },
+          "transcribe_secondary": {
+            "name": "Secondary Shortcut Model",
+            "description": "The transcription model used by the secondary shortcut."
           }
         },
         "errors": {

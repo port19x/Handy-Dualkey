@@ -179,12 +179,27 @@
           "transcribe_with_post_process": {
             "name": "후처리 단축키",
             "description": "선택 사항: 항상 AI 후처리를 적용하는 전용 단축키입니다."
+          },
+          "transcribe_secondary": {
+            "name": "보조 받아쓰기 단축키",
+            "description": "다른 모델을 사용할 수 있는 두 번째 받아쓰기 단축키입니다."
           }
         },
         "errors": {
           "restore": "원래 단축키 복원에 실패했습니다",
           "set": "단축키 설정 실패: {{error}}",
           "reset": "단축키를 원래 값으로 재설정하는데 실패했습니다"
+        },
+        "shortcutModels": {
+          "chooseModel": "모델 선택",
+          "transcribe": {
+            "name": "기본 단축키 모델",
+            "description": "기본 단축키에서 사용하는 받아쓰기 모델입니다."
+          },
+          "transcribe_secondary": {
+            "name": "보조 단축키 모델",
+            "description": "보조 단축키에서 사용하는 받아쓰기 모델입니다."
+          }
         }
       },
       "language": {

@@ -25,6 +25,9 @@ pub fn init_shortcuts(app: &AppHandle) {
         if id == "transcribe_with_post_process" && !user_settings.post_process_enabled {
             continue;
         }
+        if id == "transcribe_secondary" && user_settings.secondary_shortcut_model.is_empty() {
+            continue;
+        }
         let binding = user_settings
             .bindings
             .get(&id)
@@ -183,6 +186,7 @@ mod tests {
             "option+shift+space",
             "ctrl+space",
             "ctrl+shift+space",
+            "ctrl+alt+space",
             "alt+space",
             "escape",
         ] {

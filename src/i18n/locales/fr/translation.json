@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "Raccourci de post-traitement",
             "description": "Facultatif : Un raccourci dédié qui applique toujours le post-traitement IA à votre transcription."
+          },
+          "transcribe_secondary": {
+            "name": "Raccourci de transcription secondaire",
+            "description": "Un second raccourci de transcription pouvant utiliser un modèle différent."
           }
         },
         "errors": {
           "restore": "Échec de la restauration du raccourci original",
           "set": "Échec de la définition du raccourci : {{error}}",
           "reset": "Échec de la réinitialisation du raccourci à sa valeur d'origine"
+        },
+        "shortcutModels": {
+          "chooseModel": "Choisir un modèle",
+          "transcribe": {
+            "name": "Modèle du raccourci principal",
+            "description": "Le modèle de transcription utilisé par le raccourci principal."
+          },
+          "transcribe_secondary": {
+            "name": "Modèle du raccourci secondaire",
+            "description": "Le modèle de transcription utilisé par le raccourci secondaire."
+          }
         }
       },
       "language": {

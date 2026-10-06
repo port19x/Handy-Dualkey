@@ -413,6 +413,13 @@ pub struct AppSettings {
     pub whats_new_last_seen_version: String,
     #[serde(default = "default_model")]
     pub selected_model: String,
+    /// Model pinned to the primary transcription shortcut. Empty means follow
+    /// the current selected model until the user explicitly chooses one.
+    #[serde(default)]
+    pub primary_shortcut_model: String,
+    /// Model pinned to the secondary transcription shortcut.
+    #[serde(default)]
+    pub secondary_shortcut_model: String,
     #[serde(default)]
     pub onboarding_completed: bool,
     #[serde(default = "default_always_on_microphone")]
@@ -908,6 +915,16 @@ pub fn get_default_settings() -> AppSettings {
     let default_post_process_shortcut = "alt+shift+space";
 
     bindings.insert(
+        "transcribe_secondary".to_string(),
+        ShortcutBinding {
+            id: "transcribe_secondary".to_string(),
+            name: "Secondary Transcribe Shortcut".to_string(),
+            description: "Records and transcribes using its own configured model.".to_string(),
+            default_binding: "ctrl+alt+space".to_string(),
+            current_binding: "ctrl+alt+space".to_string(),
+        },
+    );
+    bindings.insert(
         "transcribe_with_post_process".to_string(),
         ShortcutBinding {
             id: "transcribe_with_post_process".to_string(),
@@ -943,6 +960,8 @@ pub fn get_default_settings() -> AppSettings {
         show_whats_new_on_update: default_show_whats_new_on_update(),
         whats_new_last_seen_version: default_whats_new_last_seen_version(),
         selected_model: "".to_string(),
+        primary_shortcut_model: "".to_string(),
+        secondary_shortcut_model: "".to_string(),
         onboarding_completed: false,
         always_on_microphone: false,
         selected_microphone: None,

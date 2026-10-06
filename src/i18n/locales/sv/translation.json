@@ -179,12 +179,27 @@
           "transcribe_with_post_process": {
             "name": "Snabbkommando för efterbearbetning",
             "description": "Valfritt: En dedikerad snabbknapp som alltid tillämpar AI-efterbearbetning på din transkription."
+          },
+          "transcribe_secondary": {
+            "name": "Sekundärt kortkommando för transkribering",
+            "description": "Ett andra kortkommando för transkribering som kan använda en annan modell."
           }
         },
         "errors": {
           "restore": "Misslyckades med att återställa ursprungligt kortkommando",
           "set": "Misslyckades med att ställa in kortkommando: {{error}}",
           "reset": "Misslyckades med att återställa kortkommando till ursprungsvärdet"
+        },
+        "shortcutModels": {
+          "chooseModel": "Välj en modell",
+          "transcribe": {
+            "name": "Modell för primärt kortkommando",
+            "description": "Transkriberingsmodellen som används av det primära kortkommandot."
+          },
+          "transcribe_secondary": {
+            "name": "Modell för sekundärt kortkommando",
+            "description": "Transkriberingsmodellen som används av det sekundära kortkommandot."
+          }
         }
       },
       "language": {

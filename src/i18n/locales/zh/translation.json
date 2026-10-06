@@ -199,12 +199,27 @@
           "transcribe_with_post_process": {
             "name": "后处理快捷键",
             "description": "可选：一个专用快捷键，始终对您的转录应用 AI 后处理。"
+          },
+          "transcribe_secondary": {
+            "name": "辅助转录快捷键",
+            "description": "第二个转录快捷键，可使用不同的模型。"
           }
         },
         "errors": {
           "restore": "无法恢复原始快捷键",
           "set": "无法设置快捷键: {{error}}",
           "reset": "无法将快捷键重置为原始值"
+        },
+        "shortcutModels": {
+          "chooseModel": "选择模型",
+          "transcribe": {
+            "name": "主快捷键模型",
+            "description": "主快捷键使用的转录模型。"
+          },
+          "transcribe_secondary": {
+            "name": "辅助快捷键模型",
+            "description": "辅助快捷键使用的转录模型。"
+          }
         }
       },
       "language": {
